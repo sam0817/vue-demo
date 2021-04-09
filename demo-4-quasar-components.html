@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<head>
+  <!-- <S src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.js"></S> -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
+  <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/quasar@2.0.0-beta.11/dist/quasar.prod.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+  <div id="app">
+    <h1>Quasar 範例</h1>
+    <div class="text-red text-h3">使用 Quasar Component</div>
+    <div class="row q-gutter-sm">
+      <q-btn label="HI THERE"></q-btn>
+      <q-btn label="HI HERE" glossy color="primary"></q-btn>
+      <q-btn color="grey-4" text-color="purple" glossy unelevated icon="fas fa-adjust" label="Purple text" ></q-btn>
+      <q-input v-model="value" label="請輸入資料" ></q-input>
+      <div> 輸入內容： {{ value }}</div>
+    </div>
+    <h3>版面配置</h3>
+    <div class="row">
+      <div class="col">HI</div>
+      <div class="col">HI</div>
+      <div class="col">HI</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar@2.0.0-beta.11/dist/quasar.umd.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar@2.0.0-beta.11/dist/lang/zh-TW.umd.prod.js"></script>
+  
+  <script>
+    var app = Vue.createApp({
+      setup() {
+        const value = Vue.ref('');
+        return { value };
+      },
+    });
+
+    app.use(Quasar)
+    Quasar.lang.set(Quasar.lang.zhTW)
+
+    app.mount("#app");
+  </script>
+</body>

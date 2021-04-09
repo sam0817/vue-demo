@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<head>
+  <!-- <S src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.js"></S> -->
+  <script src="https://unpkg.com/vue@next"></script>
+  <style>
+    h1 {
+      color: red;
+    }
+    .red-color-text {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h1>Vue 基礎範例 </h1>
+    <div v-show="true">{{ message }}</div>
+    <div v-show="true">
+      <h2>資料 Binding</h2>
+      <h3 class="red-color-text">Value: {{ value }}</h3>
+      <h3>checked: {{ checked }} - {{ checked ? '已勾選' : '未勾選' }}</h3>
+      <div>
+        2-way binding
+        <input v-model="value" />
+      </div>
+      <div>
+        1-way binding
+        <input :value="value" @input="whenInput" />
+      </div>
+      <div>
+        <h3>Other Input Type: CheckBox</h3>
+        <input type="checkbox" v-model="checked" />
+        <label> CheckBox </label>
+      </div>
+
+      <div>
+        <h3>Button: bind Event</h3>
+        <button @click="clearValue">CLEAR</button>
+      </div>
+    </div>
+    <div>
+      <h2>Computed</h2>
+      a : <input v-model="a" /> + b: <input v-model="b" /> = {{ sum }}
+    </div>
+    <div>
+      <h2>List Example</h2>
+      <input v-for="item in listItems" :key="item.id" :value="item.value" />
+    </div>
+    <div>
+      <h2>Dynamic Style Class</h2>
+      <button @click="customStyle = !customStyle" >CHANGE</button>
+      <div :class="customStyle ? 'red-color-text' : ''" > Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+      </div>
+    </div>
+  </div>
+  <script>
+    var app = Vue.createApp({
+      data() {
+        return {
+          message: "Hello Vue!",
+          value: "",
+          checked: false,
+          a: 0,
+          b: 0,
+          listItems: [
+            { id: 1, value: 20 },
+            { id: 2, value: 50 },
+            { id: 3, value: 80 },
+          ],
+          customStyle: false,
+        };
+      },
+      methods: {
+        whenInput(...args) {
+          console.log("input", args);
+        },
+        clearValue() {
+          this.value = "";
+        },
+      },
+      computed: {
+        sum() {
+          return parseInt(this.a) + parseInt(this.b);
+        },
+      },
+      watch: {
+        a(...args) {
+          console.log("a changed:", args);
+        },
+        b(newValue, oldValue) {
+          console.log("b changed:", oldValue, "->", newValue);
+        },
+      },
+      mounted() {
+        console.log("mounted");
+      },
+    }).mount("#app");
+  </script>
+</body>

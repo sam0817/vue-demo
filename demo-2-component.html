@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<head>
+  <!-- <S src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.js"></S> -->
+  <script src="https://unpkg.com/vue@next"></script>
+  <style>
+    .red {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h1> Vue Component 範例 </h1>
+    <div>
+      <h2>@ App Component</h2>
+      Name : {{ name }} AddRess : {{ address}}
+      <button @click="reset">RESET</button>
+    </div>
+
+    <my-inputbox label="Please Input Name" :input-text="name" @update:input-text="updateName" ></my-inputbox>
+    <my-inputbox label="Please Input Address" v-model:input-text="address" ></my-inputbox>
+    <my-inputbox v-model:input-text="address" ></my-inputbox>
+    <!-- <my-inputbox></my-inputbox> -->
+
+  </div>
+  <script>
+    var app = Vue.createApp({
+      data() {
+        return {
+          name: "abdc",
+          address: "address",
+        };
+      },
+      methods: {
+        updateName(value) {
+          this.name = value;
+        },
+        reset() {
+          this.name = "Name";
+          this.address = "Address";
+        },
+      },
+      computed: {},
+      watch: {},
+      mounted() {},
+    });
+
+    app.component("my-inputbox", {
+      template: `<div>
+        <h3 class="red-text">{{ label }} </h3>
+          <input v-model="innerValue" />
+           (inner value: {{ innerValue }})
+        </div>`,
+      props: {
+        label: {
+          type: String,
+          default: "Input",
+        },
+        inputText: {
+          type: String,
+          required: true,
+        },
+      },
+      emits: ["update:inputText"],
+      data() {
+        return {
+          innerValue: "",
+        };
+      },
+      watch: {
+        inputText(newValue) {
+          this.innerValue = newValue;
+        },
+        innerValue(newValue) {
+          this.$emit("update:inputText", newValue);
+        },
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>

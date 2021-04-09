@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<head>
+  <!-- <S src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.js"></S> -->
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h1>Vue Composition API 範例</h1>
+    <div>
+      <h2>Section 1</h2>
+      <input v-model.number="a" /> + b: <input v-model.number="b" /> = {{ sum }}
+    </div>
+    <div>
+      <h2>Section 2</h2>
+      <input v-model.number="c" /> + b: <input v-model.number="d" /> = {{ sumCD }}
+    </div>
+  </div>
+  <script>
+    // 模組化相同邏輯功能 供重覆使用
+    const useSum = () => {
+      const a = Vue.ref(0);
+      const b = Vue.ref(0);
+      const sum = Vue.computed(() => a.value + b.value);
+
+      return { a, b, sum };
+    };
+  </script>
+
+  <script>
+    var app = Vue.createApp({
+      setup() {
+        const { a, b, sum } = useSum();
+        const { a: c, b: d, sum: sumCD } = useSum();
+        return { a, b, sum, c, d, sumCD };
+      },
+    }).mount("#app");
+  </script>
+</body>
