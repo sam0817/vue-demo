@@ -14,7 +14,8 @@
     </div>
     <div>
       <h2>Section 2</h2>
-      <input v-model.number="c" /> + b: <input v-model.number="d" /> = {{ sumCD }}
+      <input v-model.number="c" /> + b: <input v-model.number="d" /> = {{ sumCD
+      }}
     </div>
   </div>
   <script>
@@ -23,7 +24,12 @@
       const a = Vue.ref(0);
       const b = Vue.ref(0);
       const sum = Vue.computed(() => a.value + b.value);
-
+      Vue.watch(a, (newValue, oldValue) => {
+        console.log("a changed:", oldValue, "->", newValue);
+      });
+      Vue.onMounted(() => {
+        console.log("run funtion @ useSum ");
+      });
       return { a, b, sum };
     };
   </script>
