@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <div>
+            <!-- {{ message }} -->
+        </div>
+        <div>
+            <input :value="inputText" />
+            {{ inputText }}
+            <br />
+            <button @click="clear">CLEAR</button>
+            <div>
+                2-way
+                <input v-model="inputText" @keyup.esc="clear" />
+                <input v-model="inputText" />
+            </div>
+            <my-btn></my-btn>
+            <my-btn label="message"></my-btn>
+            
+        </div>
+
+        <div>
+            <input v-model="a">
+            + <input v-model="b">
+            <!-- = {{ a + b }} -->
+            = {{ sum }}
+        </div>
+    </div>
+    <script>
+        const app = {
+            data() {
+                return {
+                    message: 'abc',
+                    inputText: '13',
+                    a: 0,
+                    b: 0,
+                }
+            },
+            computed: {
+                sum() {
+                    return (parseInt(this.a) + parseInt(this.b));
+                },
+            },
+            methods: {
+                clear() {
+                    this.inputText = '';
+                    // console.log('here');
+                }
+            },
+            mounted() {
+                console.log('app mounted');
+            },
+            watch: {
+                // a(newValue, oldValue) {
+                a(adbasfe) {
+                    console.log('a changed to', adbasfe);
+                    // console.log('a changed', oldValue, '->', newValue);
+                },
+                b(...parameter) {
+                    console.log(parameter);
+                },
+            },
+        };
+        const vapp = Vue.createApp(app);
+        vapp.component('my-btn', {
+            template: `<button>{{label}}</button>`,
+            props: {
+                label: {
+                    type: String,
+                    default: 'click'
+                }
+            },
+            mounted(){
+                console.log('btn component mounted');
+            },
+        });
+        vapp.mount('#app')
+    </script>
+
+</body>
+
+
+</html>
