@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 
 <head>
-  <!-- <S src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.js"></S> -->
-  <script src="https://unpkg.com/vue@next"></script>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <style>
     h1 {
       color: red;
@@ -17,18 +17,18 @@
 <body>
   <div id="app">
     <h1>Vue 基礎範例 </h1>
-    <div v-show="true">{{ message }}</div>
+    <div v-show="true">{{ message + 'efefefefe' }}</div>
     <div v-show="true">
       <h2>資料 Binding</h2>
-      <h3 class="red-color-text">Value: {{ value }}</h3>
+      <h3 class="red-color-text">Value: {{ variable }}</h3>
       <h3>checked: {{ checked }} - {{ checked ? '已勾選' : '未勾選' }}</h3>
       <div>
         2-way binding
-        <input v-model="value" />
+        <input v-model="variable" />
       </div>
       <div>
         1-way binding
-        <input :value="value" @input="whenInput" />
+        <input :value="variable" @input="whenInput" />
       </div>
       <div>
         <h3>Other Input Type: CheckBox</h3>
@@ -61,7 +61,7 @@
       data() {
         return {
           message: "Hello Vue!",
-          value: "",
+          variable: "100",
           checked: false,
           a: 0,
           b: 0,
@@ -76,9 +76,10 @@
       methods: {
         whenInput(...args) {
           console.log("input", args);
+          this.variable = args[0].target.value;
         },
         clearValue() {
-          this.value = "";
+          this.variable = "";
         },
       },
       computed: {
